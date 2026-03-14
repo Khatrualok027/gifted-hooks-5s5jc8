@@ -18,8 +18,9 @@
       :root {
         --bg: #030305;
         --accent: #00f2ff;
-        --glass: rgba(255, 255, 255, 0.03);
+        --glass: rgba(255, 255, 255, 0.02);
         --border: rgba(255, 255, 255, 0.1);
+        --neon: #00f2ff;
       }
 
       * {
@@ -35,64 +36,113 @@
         overflow-x: hidden;
       }
 
-      .bg-glow {
+      /* Background Ambient */
+      .ambient {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: radial-gradient(circle at 50% 50%, #111, #030305);
+        background: radial-gradient(circle at 20% 30%, #0a1a20, transparent),
+          radial-gradient(circle at 80% 70%, #1a0a20, transparent);
       }
 
-      /* SOLUTION: LinkedIn button moved to TOP NAV */
+      /* Nav Design */
       nav {
         padding: 20px 6%;
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(15px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
       }
       .logo {
         font-weight: 800;
-        font-size: 1rem;
-        letter-spacing: 2px;
+        font-size: 1.1rem;
+        letter-spacing: 3px;
       }
       .logo span {
         color: var(--accent);
+        text-shadow: 0 0 10px var(--accent);
       }
 
       .li-nav-btn {
         background: #0a66c2;
         color: white;
         text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 50px;
-        font-size: 12px;
-        font-weight: 700;
-        transition: 0.3s;
+        padding: 12px 24px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 800;
+        transition: 0.4s;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 20px rgba(10, 102, 194, 0.3);
+      }
+      .li-nav-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(10, 102, 194, 0.5);
       }
 
-      /* Layout Container */
+      /* Main Grid */
       .main-container {
         display: grid;
         grid-template-columns: 1.2fr 0.8fr;
-        gap: 30px;
-        max-width: 1500px;
-        margin: 30px auto;
-        padding: 0 5%;
-        height: 70vh;
+        gap: 40px;
+        max-width: 1600px;
+        margin: 40px auto;
+        padding: 0 6%;
+        height: 75vh;
         align-items: center;
       }
 
+      /* PROFESSIONAL BORDER DESIGN - Moving Light */
       .viewer-box {
         height: 100%;
         background: var(--glass);
-        border: 1px solid var(--border);
         border-radius: 40px;
         overflow: hidden;
-        backdrop-filter: blur(20px);
+        position: relative;
+        backdrop-filter: blur(30px);
+        border: 1px solid var(--border);
+        transition: 0.5s;
       }
+
+      /* Neon Border Shine Effect */
+      .viewer-box::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          var(--accent),
+          transparent,
+          var(--accent),
+          transparent
+        );
+        background-size: 400%;
+        z-index: -1;
+        border-radius: 42px;
+        opacity: 0.3;
+        animation: neon-flow 10s linear infinite;
+      }
+
+      @keyframes neon-flow {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 400% 50%;
+        }
+      }
+
       model-viewer {
         width: 100%;
         height: 100%;
@@ -102,50 +152,61 @@
       .sidebar {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 25px;
       }
 
+      /* Metric Cards with Design */
       .metric-card {
         background: var(--glass);
         border: 1px solid var(--border);
-        padding: 25px;
+        padding: 30px;
         border-radius: 35px;
         display: flex;
         justify-content: space-around;
+        position: relative;
+        overflow: hidden;
       }
-      .metric-card div {
-        text-align: center;
-      }
-      .metric-card h3 {
-        font-size: 1.6rem;
+      .metric-card div h3 {
+        font-size: 2rem;
         color: var(--accent);
         font-weight: 800;
       }
-      .metric-card p {
-        font-size: 0.55rem;
-        opacity: 0.4;
-        letter-spacing: 1px;
+      .metric-card div p {
+        font-size: 0.6rem;
+        opacity: 0.5;
+        letter-spacing: 2px;
       }
 
-      /* BIG CLEAN BUTTON AREA */
+      /* ACTION HUB - Premium White */
       .action-hub {
         background: #ffffff;
         color: #000;
-        padding: 40px;
-        border-radius: 40px;
+        padding: 50px 40px;
+        border-radius: 50px;
         text-align: center;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       .action-hub h4 {
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-        margin-bottom: 20px;
-        opacity: 0.6;
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        margin-bottom: 25px;
+        color: #888;
+        font-weight: 800;
+      }
+
+      .qr-wrap {
+        background: #f8f8f8;
+        padding: 15px;
+        border-radius: 30px;
+        display: inline-block;
+        margin-bottom: 30px;
+        border: 1px solid #eee;
       }
       .action-hub img {
-        width: 170px;
-        height: 170px;
-        margin-bottom: 20px;
+        width: 180px;
+        height: 180px;
+        display: block;
         border-radius: 15px;
       }
 
@@ -154,36 +215,43 @@
         background: #000;
         color: #fff;
         border: none;
-        padding: 20px;
+        padding: 24px;
         border-radius: 100px;
-        font-weight: 800;
-        font-size: 1rem;
+        font-weight: 900;
+        font-size: 1.1rem;
         cursor: pointer;
-        transition: 0.3s;
+        transition: 0.4s;
+        letter-spacing: 2px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+      .ar-primary-btn:hover {
+        background: #222;
+        transform: translateY(-5px) scale(1.02);
       }
 
-      /* Mobile Fixes */
+      /* Responsive Mobile */
       @media (max-width: 1100px) {
         .main-container {
           grid-template-columns: 1fr;
           height: auto;
-          padding-bottom: 50px;
+          padding-bottom: 60px;
         }
         .viewer-box {
-          height: 400px;
+          height: 450px;
         }
         .logo {
-          font-size: 0.8rem;
+          font-size: 0.9rem;
+          letter-spacing: 1.5px;
         }
         .li-nav-btn {
-          padding: 8px 15px;
+          padding: 10px 18px;
           font-size: 10px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="bg-glow"></div>
+    <div class="ambient"></div>
 
     <nav>
       <div class="logo">NEXON <span>3D AR</span></div>
@@ -192,7 +260,7 @@
         target="_blank"
         class="li-nav-btn"
       >
-        LINKEDIN
+        CONNECT ON LINKEDIN
       </a>
     </nav>
 
@@ -205,11 +273,12 @@
           camera-controls
           auto-rotate
           shadow-intensity="1.5"
-          exposure="1"
+          exposure="1.1"
           ar-scale="fixed"
           scale="1.5 1.5 1.5"
           camera-orbit="45deg 75deg 105%"
           environment-image="neutral"
+          loading="eager"
         >
           <button
             slot="ar-button"
@@ -225,6 +294,7 @@
             <h3>94%</h3>
             <p>CONFIDENCE</p>
           </div>
+          <div style="width: 1px; background: var(--border)"></div>
           <div>
             <h3>-47%</h3>
             <p>RETURNS</p>
@@ -232,28 +302,31 @@
         </div>
 
         <div class="action-hub">
-          <h4>SCAN FOR AR VIEW</h4>
-          <img src="qr.png" alt="AR QR Code" />
+          <h4>SPATIAL AUTHENTICATION</h4>
+          <div class="qr-wrap">
+            <img src="qr.png" alt="AR QR Code" />
+          </div>
           <button
             class="ar-primary-btn"
             onclick="document.querySelector('#ar-main-go').click()"
           >
-            VIEW IN YOUR ROOM
+            LAUNCH AR
           </button>
         </div>
       </div>
     </main>
 
-    <div
+    <footer
       style="
         text-align: center;
-        opacity: 0.2;
+        opacity: 0.3;
         font-size: 9px;
-        padding: 20px;
-        letter-spacing: 2px;
+        padding: 30px;
+        letter-spacing: 4px;
+        font-weight: 400;
       "
     >
-      SPATIAL ENGINE 2.0 | RAIPUR HQ
-    </div>
+      NEXON SPATIAL ENGINE 2.0 • RAIPUR
+    </footer>
   </body>
 </html>
